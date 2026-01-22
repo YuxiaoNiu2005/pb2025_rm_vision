@@ -39,6 +39,7 @@ def launch_setup(context: LaunchContext) -> list:
     detector = LaunchConfiguration("detector")
     params_file = LaunchConfiguration("params_file")
     use_hik_camera = LaunchConfiguration("use_hik_camera")
+    use_mindvision_camera = LaunchConfiguration("use_mindvision_camera")
     use_composition = LaunchConfiguration("use_composition")
     container_name = LaunchConfiguration("container_name")
     container_name_full = (namespace, "/", container_name)
@@ -77,6 +78,17 @@ def launch_setup(context: LaunchContext) -> list:
                 package="hik_camera_ros2_driver",
                 executable="hik_camera_ros2_driver_node",
                 name="hik_camera_ros2_driver",
+                output="screen",
+                respawn=use_respawn,
+                respawn_delay=2.0,
+                parameters=[configured_params],
+                arguments=["--ros-args", "--log-level", log_level],
+            ),
+            Node(
+                condition=IfCondition(use_mindvision_camera),
+                package="mindvision_camera",
+                executable="mindvision_camera_node",
+                name="mindvision_camera",
                 output="screen",
                 respawn=use_respawn,
                 respawn_delay=2.0,
@@ -126,6 +138,14 @@ def launch_setup(context: LaunchContext) -> list:
                 package="hik_camera_ros2_driver",
                 plugin="hik_camera_ros2_driver::HikCameraRos2DriverNode",
                 name="hik_camera_ros2_driver",
+                parameters=[configured_params],
+                extra_arguments=[{"use_intra_process_comms": True}],
+            ),
+            ComposableNode(
+                condition=IfCondition(use_mindvision_camera),
+                package="mindvision_camera",
+                plugin="mindvision_camera::MVCameraNode",
+                name="mindvision_camera",
                 parameters=[configured_params],
                 extra_arguments=[{"use_intra_process_comms": True}],
             ),
@@ -195,6 +215,12 @@ def generate_launch_description():
         description="Whether to bringup hik camera node",
     )
 
+    declare_use_mindvision_camera_cmd = DeclareLaunchArgument(
+        "use_mindvision_camera",
+        default_value="False",
+        description="Whether to bringup mindvision camera node",
+    )
+
     declare_use_composition_cmd = DeclareLaunchArgument(
         "use_composition",
         default_value="False",
@@ -226,6 +252,7 @@ def generate_launch_description():
     ld.add_action(declare_detector_cmd)
     ld.add_action(declare_params_file_cmd)
     ld.add_action(declare_use_hik_camera_cmd)
+    ld.add_action(declare_use_mindvision_camera_cmd)
     ld.add_action(declare_use_composition_cmd)
     ld.add_action(declare_container_name_cmd)
     ld.add_action(declare_use_respawn_cmd)

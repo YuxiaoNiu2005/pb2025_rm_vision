@@ -34,6 +34,7 @@ def generate_launch_description():
     detector = LaunchConfiguration("detector")
     params_file = LaunchConfiguration("params_file")
     use_hik_camera = LaunchConfiguration("use_hik_camera")
+    use_mindvision_camera = LaunchConfiguration("use_mindvision_camera")
     use_robot_state_pub = LaunchConfiguration("use_robot_state_pub")
     use_composition = LaunchConfiguration("use_composition")
     use_respawn = LaunchConfiguration("use_respawn")
@@ -72,8 +73,14 @@ def generate_launch_description():
 
     declare_use_hik_camera_cmd = DeclareLaunchArgument(
         "use_hik_camera",
-        default_value="True",
+        default_value="False",
         description="Whether to bringup hik camera node",
+    )
+
+    declare_use_mindvision_camera_cmd = DeclareLaunchArgument(
+        "use_mindvision_camera",
+        default_value="True",
+        description="Whether to bringup mindvision camera node",
     )
 
     declare_use_robot_state_pub_cmd = DeclareLaunchArgument(
@@ -100,6 +107,12 @@ def generate_launch_description():
         description="Full path to the RViz config file to use",
     )
 
+    # declare_namespace_cmd = DeclareLaunchArgument(
+    #     "namespace",
+    #     default_value="serial_comm",
+    #     description="Top-level namespace",
+    # )
+
     declare_use_rviz_cmd = DeclareLaunchArgument(
         "use_rviz", default_value="True", description="Whether to start RVIZ"
     )
@@ -116,6 +129,7 @@ def generate_launch_description():
             "detector": detector,
             "params_file": params_file,
             "use_hik_camera": use_hik_camera,
+            "use_mindvision_camera": use_mindvision_camera,
             "use_composition": use_composition,
             "use_respawn": use_respawn,
             "log_level": log_level,
@@ -149,6 +163,7 @@ def generate_launch_description():
     ld.add_action(declare_namespace_cmd)
     ld.add_action(declare_use_sim_time_cmd)
     ld.add_action(declare_use_hik_camera_cmd)
+    ld.add_action(declare_use_mindvision_camera_cmd)
     ld.add_action(declare_params_file_cmd)
     ld.add_action(declare_use_robot_state_pub_cmd)
     ld.add_action(declare_detector_cmd)

@@ -41,6 +41,7 @@ def generate_launch_description():
     detector = LaunchConfiguration("detector")
     params_file = LaunchConfiguration("params_file")
     use_hik_camera = LaunchConfiguration("use_hik_camera")
+    use_mindvision_camera = LaunchConfiguration("use_mindvision_camera")
     use_composition = LaunchConfiguration("use_composition")
     use_respawn = LaunchConfiguration("use_respawn")
     log_level = LaunchConfiguration("log_level")
@@ -90,8 +91,14 @@ def generate_launch_description():
 
     declare_use_hik_camera_cmd = DeclareLaunchArgument(
         "use_hik_camera",
-        default_value="True",
+        default_value="False",
         description="Whether to bringup hik camera node",
+    )
+
+    declare_use_mindvision_camera_cmd = DeclareLaunchArgument(
+        "use_mindvision_camera",
+        default_value="True",
+        description="Whether to bringup mindvision camera node",
     )
 
     declare_use_composition_cmd = DeclareLaunchArgument(
@@ -135,6 +142,7 @@ def generate_launch_description():
                     "detector": detector,
                     "params_file": params_file,
                     "use_hik_camera": use_hik_camera,
+                    "use_mindvision_camera": use_mindvision_camera,
                     "use_composition": use_composition,
                     "use_respawn": use_respawn,
                     "container_name": "rm_vision_container",
@@ -156,6 +164,7 @@ def generate_launch_description():
     ld.add_action(declare_detector_cmd)
     ld.add_action(declare_params_file_cmd)
     ld.add_action(declare_use_hik_camera_cmd)
+    ld.add_action(declare_use_mindvision_camera_cmd)
     ld.add_action(declare_use_composition_cmd)
     ld.add_action(declare_use_respawn_cmd)
     ld.add_action(declare_log_level_cmd)
