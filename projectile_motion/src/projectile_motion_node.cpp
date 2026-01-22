@@ -131,7 +131,7 @@ bool ProjectileMotionNode::getCurrentGimbalAngle(
 
 void ProjectileMotionNode::calculateTargetPosition(
   const auto_aim_interfaces::msg::Target::SharedPtr & msg, const Eigen::Vector3d & center_position,
-  const Eigen::Vector3d & center_velocity, double cur_yaw, double & hit_yaw, double & hit_pitch)
+  const Eigen::Vector3d & center_velocity, [[maybe_unused]] double cur_yaw, double & hit_yaw, double & hit_pitch)
 {
   bool is_current_pair = true;
   double r = 0., target_dz = 0., fly_time = 0.;
