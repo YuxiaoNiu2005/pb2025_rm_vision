@@ -72,7 +72,7 @@ armor_tracker:
       r_yaw: 0.003
 
     tracker:
-      max_match_distance: 0.5
+      max_match_distance: 1.0
       max_match_yaw_diff: 1.0
 
       tracking_thres: 5
