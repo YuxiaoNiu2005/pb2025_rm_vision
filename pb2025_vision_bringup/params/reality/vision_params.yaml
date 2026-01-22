@@ -22,7 +22,7 @@ mindvision_camera:
     # frame_id: "optical_frame"     # If not set, it will be set as <camera_name>_optical_frame
 
     exposure_time: 3000             # Unit: us
-    analog_gain: 100                 # Analog gain value
+    analog_gain: 15                 # Analog gain value
 
 armor_detector_opencv:
   ros__parameters:

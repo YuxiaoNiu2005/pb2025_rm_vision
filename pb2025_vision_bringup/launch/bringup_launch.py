@@ -121,8 +121,9 @@ def generate_launch_description():
     bringup_cmd_group = GroupAction(
         [
             PushRosNamespace(namespace=namespace),
-            SetRemap("/tf", "tf"),
-            SetRemap("/tf_static", "tf_static"),
+            # 让自瞄包订阅串口包的动态tf，以获取实时的云台关节状态
+            SetRemap("/tf", "/serial_comm/tf"),
+            SetRemap("/tf_static", "/serial_comm/tf_static"),
             Node(
                 condition=IfCondition(use_composition),
                 name="rm_vision_container",

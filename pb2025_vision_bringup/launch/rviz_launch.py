@@ -56,8 +56,9 @@ def generate_launch_description():
         arguments=["-d", rviz_config_file],
         output="screen",
         remappings=[
-            ("/tf", "tf"),
-            ("/tf_static", "tf_static"),
+            # 让rviz订阅串口包的动态tf，以显示实时的云台关节状态
+            ("/tf", "/serial_comm/tf"),
+            ("/tf_static", "/serial_comm/tf_static"),
             (
                 "/front_industrial_camera/camera_info",
                 "front_industrial_camera/camera_info",
