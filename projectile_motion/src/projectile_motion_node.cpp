@@ -105,7 +105,7 @@ void ProjectileMotionNode::targetCallback(const auto_aim_interfaces::msg::Target
   double hit_yaw = 0.0, hit_pitch = 0.0;
   calculateTargetPosition(msg, center_position, center_velocity, cur_yaw_, hit_yaw, hit_pitch);
 
-  publishGimbalCommand(hit_pitch, hit_yaw, 1);
+  publishGimbalCommand(msg ,hit_pitch, hit_yaw, 1);
 }
 
 bool ProjectileMotionNode::getCurrentGimbalAngle(
@@ -197,14 +197,19 @@ void ProjectileMotionNode::calculateTargetPosition(
   publishHitYawMarker(hit_yaw, hit_pitch);
 }
 
-void ProjectileMotionNode::publishGimbalCommand(double hit_pitch, double hit_yaw, uint8_t shoot)
+void ProjectileMotionNode::publishGimbalCommand( const auto_aim_interfaces::msg::Target::SharedPtr & msg, double hit_pitch, double hit_yaw, uint8_t shoot)
 {
   pb_rm_interfaces::msg::GimbalCmd gimbal_cmd;
   example_interfaces::msg::UInt8 shoot_cmd;
   gimbal_cmd.header.stamp = this->now();
   gimbal_cmd.pitch_type = pb_rm_interfaces::msg::GimbalCmd::ABSOLUTE_ANGLE;
   gimbal_cmd.yaw_type = pb_rm_interfaces::msg::GimbalCmd::ABSOLUTE_ANGLE;
-  gimbal_cmd.position.pitch = hit_pitch + offset_pitch_;
+  if(gimbal_cmd.position.pitch > 0){
+    gimbal_cmd.position.pitch = hit_pitch * 1;
+  }else{
+    gimbal_cmd.position.pitch = hit_pitch + offset_pitch_ ;
+    // gimbal_cmd.position.pitch = hit_pitch + offset_pitch_ - 0.025 * msg->position.x ;
+  };
   gimbal_cmd.position.yaw = hit_yaw + offset_yaw_;
 
   gimbal_cmd_publisher_->publish(gimbal_cmd);

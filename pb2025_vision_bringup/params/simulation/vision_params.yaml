@@ -16,7 +16,7 @@ armor_detector_opencv:
     camera_name: "front_industrial_camera"
 
     detect_color: 0
-    binary_thres: 80
+    binary_thres: 60
 
     light.min_ratio: 0.1
     armor.min_light_ratio: 0.8
@@ -57,8 +57,8 @@ armor_tracker:
       r_yaw: 0.003
 
     tracker:
-      max_match_distance: 0.5
-      max_match_yaw_diff: 1.0
+      max_match_distance: 5.0
+      max_match_yaw_diff: 10.0
 
       tracking_thres: 5
       lost_time_thres: 1.0

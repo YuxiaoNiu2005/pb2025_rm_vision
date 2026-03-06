@@ -46,7 +46,7 @@ public:
 
 private:
   void targetCallback(const auto_aim_interfaces::msg::Target::SharedPtr msg);
-  void publishGimbalCommand(double hit_pitch, double hit_yaw, uint8_t shoot);
+  void publishGimbalCommand(const auto_aim_interfaces::msg::Target::SharedPtr & msg, double hit_pitch, double hit_yaw, uint8_t shoot);
   void calculateTargetPosition(
     const auto_aim_interfaces::msg::Target::SharedPtr & msg,
     const Eigen::Vector3d & center_position, const Eigen::Vector3d & center_velocity,
