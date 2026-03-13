@@ -200,6 +200,7 @@ void Tracker::handleArmorJump(const Armor & current_armor)
   if (tracked_armors_num == ArmorsNum::NORMAL_4) {
     dz = target_state(4) - current_armor.pose.position.z;
     target_state(4) = current_armor.pose.position.z;
+    target_state(5) = 0;  // Reset v_za to prevent z drift in spinning mode
     std::swap(target_state(8), another_r);
   }
   RCLCPP_WARN(rclcpp::get_logger("armor_tracker"), "Armor jump!");

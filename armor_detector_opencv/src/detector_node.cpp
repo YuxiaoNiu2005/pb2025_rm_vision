@@ -182,7 +182,7 @@ std::unique_ptr<Detector> ArmorDetectorOpencvNode::initDetector()
     .min_light_ratio = declare_parameter("armor.min_light_ratio", 0.7),
     .min_small_center_distance = declare_parameter("armor.min_small_center_distance", 0.8),
     .max_small_center_distance = declare_parameter("armor.max_small_center_distance", 3.2),
-    .min_large_center_distance = declare_parameter("armor.min_large_center_distance", 0.1),
+    .min_large_center_distance = declare_parameter("armor.min_large_center_distance", 3.2),
     .max_large_center_distance = declare_parameter("armor.max_large_center_distance", 7.0),
     .max_angle = declare_parameter("armor.max_angle", 35.0)};
 

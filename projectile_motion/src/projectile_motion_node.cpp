@@ -204,12 +204,14 @@ void ProjectileMotionNode::publishGimbalCommand( const auto_aim_interfaces::msg:
   gimbal_cmd.header.stamp = this->now();
   gimbal_cmd.pitch_type = pb_rm_interfaces::msg::GimbalCmd::ABSOLUTE_ANGLE;
   gimbal_cmd.yaw_type = pb_rm_interfaces::msg::GimbalCmd::ABSOLUTE_ANGLE;
-  if(gimbal_cmd.position.pitch > 0){
-    gimbal_cmd.position.pitch = hit_pitch * 1;
-  }else{
-    gimbal_cmd.position.pitch = hit_pitch + offset_pitch_ ;
-    // gimbal_cmd.position.pitch = hit_pitch + offset_pitch_ - 0.025 * msg->position.x ;
-  };
+  // if(msg->position.y > 2.7)
+  // {
+  //   gimbal_cmd.position.pitch = hit_pitch + offset_pitch_;
+  // }else
+  // {
+  //   gimbal_cmd.position.pitch = hit_pitch;
+  // };
+  gimbal_cmd.position.pitch = hit_pitch + offset_pitch_;
   gimbal_cmd.position.yaw = hit_yaw + offset_yaw_;
 
   gimbal_cmd_publisher_->publish(gimbal_cmd);

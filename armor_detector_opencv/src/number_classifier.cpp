@@ -51,9 +51,17 @@ void NumberClassifier::extractNumbers(const cv::Mat & src, std::vector<Armor> & 
 
   for (auto & armor : armors) {
     // Warp perspective transform
+    // Shrink bottom vertices upward to exclude chassis lights below armor
+    // Use only 70% of light length from top to avoid chassis light interference
+    const float shrink_ratio = 0.8;  // Use top 70% of light length
+    cv::Point2f left_bottom_shrunk = 
+      armor.left_light.top + shrink_ratio * (armor.left_light.bottom - armor.left_light.top);
+    cv::Point2f right_bottom_shrunk = 
+      armor.right_light.top + shrink_ratio * (armor.right_light.bottom - armor.right_light.top);
+    
     cv::Point2f lights_vertices[4] = {
-      armor.left_light.bottom, armor.left_light.top, armor.right_light.top,
-      armor.right_light.bottom};
+      left_bottom_shrunk, armor.left_light.top, armor.right_light.top,
+      right_bottom_shrunk};
 
     const int top_light_y = (warp_height - light_length) / 2 - 1;
     const int bottom_light_y = top_light_y + light_length;
