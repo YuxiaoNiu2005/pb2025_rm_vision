@@ -217,7 +217,7 @@ void ProjectileMotionNode::publishGimbalCommand( const auto_aim_interfaces::msg:
   gimbal_cmd_publisher_->publish(gimbal_cmd);
 
   shoot_cmd.data =
-    (fabs(hit_pitch - cur_pitch_) < 0.1 && fabs(hit_yaw - cur_yaw_) < 0.1) ? shoot : 0;
+    (fabs(hit_pitch - cur_pitch_) < 0.1 && fabs(hit_yaw - cur_yaw_) < 0.05) ? shoot : 0;
   shoot_cmd_publisher_->publish(shoot_cmd);
 }
 

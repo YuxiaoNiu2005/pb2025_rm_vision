@@ -94,7 +94,7 @@ ArmorTrackerNode::ArmorTrackerNode(const rclcpp::NodeOptions & options)
     Eigen::MatrixXd q(9, 9);
     double t = dt_, x = s2qxyz_, y = s2qyaw_, r = s2qr_;
     double q_x_x = pow(t, 4) / 4 * x, q_x_vx = pow(t, 3) / 2 * x, q_vx_vx = pow(t, 2) * x;
-    double q_y_y = pow(t, 4) / 4 * y, q_y_vy = pow(t, 3) / 2 * x, q_vy_vy = pow(t, 2) * y;
+    double q_y_y = pow(t, 4) / 4 * y, q_y_vy = pow(t, 3) / 2 * y, q_vy_vy = pow(t, 2) * y;
     double q_r = pow(t, 4) / 4 * r;
     // clang-format off
     //    xc      v_xc     yc       v_yc     za      v_za     yaw     v_yaw    r
@@ -269,9 +269,16 @@ void ArmorTrackerNode::armorsCallback(const auto_aim_interfaces::msg::Armors::Sh
     }
   }
 
-  last_time_ = time;
-
+  last_time_ = time; 
+  // if(target_msg.position.x < 0.7)
+  // {
+  //   target_msg.tracking = false;
+  //   target_pub_->publish(target_msg);
+  // }else{
+  //       target_pub_->publish(target_msg);
+  // }
   target_pub_->publish(target_msg);
+
 
   publishMarkers(target_msg);
 }

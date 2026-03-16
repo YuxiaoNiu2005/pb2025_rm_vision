@@ -4,14 +4,14 @@ camera_name: front_industrial_camera
 camera_matrix:
   rows: 3
   cols: 3
-  data: [1267.45829,    0.     ,  622.4747 ,
-            0.     , 1262.3187 ,  491.31417,
+  data: [1272.84398,    0.     ,  634.91465,
+            0.     , 1269.77847,  486.90777,
             0.     ,    0.     ,    1.     ]
 distortion_model: plumb_bob
 distortion_coefficients:
   rows: 1
   cols: 5
-  data: [-0.072154, 0.028804, 0.000221, -0.001560, 0.000000]
+  data: [-0.082229, 0.088951, 0.000599, -0.001289, 0.000000]
 rectification_matrix:
   rows: 3
   cols: 3
@@ -21,6 +21,6 @@ rectification_matrix:
 projection_matrix:
   rows: 3
   cols: 4
-  data: [1244.64417,    0.     ,  619.82374,    0.     ,
-            0.     , 1246.69434,  490.53004,    0.     ,
+  data: [1252.2301 ,    0.     ,  633.01227,    0.     ,
+            0.     , 1254.33899,  486.36684,    0.     ,
             0.     ,    0.     ,    1.     ,    0.     ]

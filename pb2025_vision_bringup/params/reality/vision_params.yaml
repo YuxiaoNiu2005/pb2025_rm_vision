@@ -21,8 +21,8 @@ mindvision_camera:
     camera_name: "front_industrial_camera"
     # frame_id: "optical_frame"     # If not set, it will be set as <camera_name>_optical_frame
 
-    exposure_time: 4000             # Unit: us
-    analog_gain: 12                 # Analog gain value
+    exposure_time: 1800             # Unit: us
+    analog_gain: 33                 # Analog gain value
 
 armor_detector_opencv:
   ros__parameters:
@@ -36,7 +36,7 @@ armor_detector_opencv:
     light.min_ratio: 0.1
     armor.min_light_ratio: 0.8
 
-    classifier_threshold: 0.1
+    classifier_threshold: 0.8
     ignore_classes: ["negative"]
 
 armor_detector_openvino:
@@ -69,7 +69,7 @@ armor_tracker:
       sigma2_q_r: 80.0       # 半径过程噪声
 
       r_xyz_factor: 0.002    # 适当增加测量噪声，平衡预测和测量 (原值: 0.001)
-      r_yaw: 0.003
+      r_yaw: 0.03
 
     tracker:
       max_match_distance: 1.0
@@ -83,11 +83,11 @@ projectile_motion:
   ros__parameters:
     use_sim_time: false
     projectile:
-      offset_pitch: 0.03
+      offset_pitch: -0.01
       # offset_yaw: 0.07
-      offset_yaw: 0.03              # 向左补偿弹道偏右 (原值: 0.0)
-      offset_time: 0.05              # 增加延迟补偿时间 (0.15 -> 0.20)，补偿系统处理和云台响应延迟
-      initial_speed: 14.0
+      offset_yaw: 0.0              # 向左补偿弹道偏右 (原值: 0.0)
+      offset_time: 0.002                # 增加延迟补偿时间 (0.15 -> 0.20)，补偿系统处理和云台响应延迟
+      initial_speed: 12.0
       target_frame: "gimbal_pitch"              # gimbal frame_id
       target_topic: "tracker/target"
       gimbal_cmd_topic: "serial_comm/cmd_gimbal"
